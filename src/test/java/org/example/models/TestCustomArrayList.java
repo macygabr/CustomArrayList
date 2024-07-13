@@ -27,10 +27,8 @@ public class TestCustomArrayList {
     public void testGet() {
         assertEquals(customList.size(), list.size());
         for (int i = 0; i < list.size(); i++) {
-            System.out.println(customList.get(i) + " = " + list.get(i));
             assertEquals(customList.get(i), list.get(i));
         }
-        System.out.println();
     }
 
     @Test
@@ -67,6 +65,7 @@ public class TestCustomArrayList {
 
     @Test
     public void testSort() {
+//        list.sort();
 
     }
 }

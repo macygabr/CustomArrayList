@@ -76,7 +76,7 @@ public class CustomArrayList<T> {
     }
 
     private void checkIndex(int index) throws IndexOutOfBoundsException {
-        if (index > size || index < 0) throw new IndexOutOfBoundsException("Index out of bounds: " + index);
+        if (index > size || index < 0) throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
     }
 
     private void increaseArr() {
@@ -84,5 +84,9 @@ public class CustomArrayList<T> {
             int newCapacity = array.length * 2;
             array = Arrays.copyOf(array, newCapacity);
         }
+    }
+
+    private String outOfBoundsMsg(int index) {
+        return "Index "+index+" out of bounds for length "+size;
     }
 }
