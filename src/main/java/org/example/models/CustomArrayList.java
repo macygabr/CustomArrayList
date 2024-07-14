@@ -42,7 +42,8 @@ public class CustomArrayList<T> {
 
     public T get(int index) throws IndexOutOfBoundsException {
         checkIndex(index);
-        return (T) array[index];
+        @SuppressWarnings("unchecked") T res = (T) array[index];
+        return res;
     }
 
     public Boolean isEmpty() {
@@ -67,12 +68,36 @@ public class CustomArrayList<T> {
         return false;
     }
 
-    public void sort(Comparator<? super T> comparator) {
-
-    }
-
     public int size() {
         return size;
+    }
+
+    public void sort(Comparator<? super T> comparator) {
+        quicksort(0, size - 1, comparator);
+    }
+
+    private void quicksort(int start, int end, Comparator<? super T> comparator) {
+        if (start >= end) return;
+        int rightStart = partOfSort(start, end, comparator);
+        quicksort(start, rightStart - 1, comparator);
+        quicksort(rightStart, end, comparator);
+    }
+
+    @SuppressWarnings("unchecked")
+    private int partOfSort(int left, int right, Comparator<? super T> comparator) {
+        T pivot = (T) array[(left + right) / 2];
+        while (left <= right) {
+            while (comparator.compare((T) array[left], pivot) < 0) left++;
+            while (comparator.compare((T) array[right], pivot) > 0) right--;
+            if (left <= right) {
+                T temp = (T) array[left];
+                array[left] = array[right];
+                array[right] = temp;
+                left++;
+                right--;
+            }
+        }
+        return left;
     }
 
     private void checkIndex(int index) throws IndexOutOfBoundsException {
@@ -87,6 +112,6 @@ public class CustomArrayList<T> {
     }
 
     private String outOfBoundsMsg(int index) {
-        return "Index "+index+" out of bounds for length "+size;
+        return "Index " + index + " out of bounds for length " + size;
     }
 }

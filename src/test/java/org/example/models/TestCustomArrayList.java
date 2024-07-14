@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -18,9 +19,10 @@ public class TestCustomArrayList {
     public void testAdd() {
         customList = new CustomArrayList<>();
         list = new ArrayList<>();
-        assertEquals(customList.add("test1"), list.add("test1"));
-        assertEquals(customList.add("test2"), list.add("test2"));
-        assertEquals(customList.add("test3"), list.add("test3"));
+        for (int i = 1; i <= 20; i++) {
+            String element = i + "_test";
+            assertEquals(customList.add(element), list.add(element));
+        }
     }
 
     @After
@@ -65,7 +67,8 @@ public class TestCustomArrayList {
 
     @Test
     public void testSort() {
-//        list.sort();
-
+        Comparator<String> strComparator = Comparator.reverseOrder();
+        customList.sort(strComparator);
+        list.sort(strComparator);
     }
 }
